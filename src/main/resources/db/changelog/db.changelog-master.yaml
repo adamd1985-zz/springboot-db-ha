@@ -1,0 +1,51 @@
+--- 
+databaseChangeLog: 
+  - 
+    changeSet: 
+      author: adam
+      changes: 
+        - 
+          createTable: 
+            columns: 
+              - 
+                column: 
+                  autoIncrement: true
+                  constraints: 
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: int
+              - 
+                column: 
+                  constraints: 
+                    nullable: false
+                  name: race
+                  type: varchar(50)
+            tableName: cat
+      id: 1
+  - 
+    changeSet: 
+      author: adam
+      changes: 
+        - 
+          insert: 
+            columns: 
+              - 
+                column: 
+                  name: race
+                  value: siamese
+            tableName: cat
+      id: 2
+  - 
+    changeSet: 
+      author: adam
+      changes: 
+        - 
+          insert: 
+            columns: 
+              - 
+                column: 
+                  name: race
+                  value: persian
+            tableName: cat
+      id: 3

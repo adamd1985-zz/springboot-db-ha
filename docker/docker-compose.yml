@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  psql_master:
+    image: postgres:10.1
+    #command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    ports:
+      - "5432:5432"
+    volumes:
+      - "${PWD}/confs:/etc/postgresql"
+    networks:
+      db_net:
+        ipv4_address: 192.168.1.10
+
+  psql_standby:
+    image: postgres:10.1
+    # command: -c 'config_file=/etc/postgresql/master_postgresql.conf'
+    ports:
+      - "5433:5432"
+    #volumes:
+    #  - ./standby_postgres.conf:/etc/postgresql/master_postgresql.conf
+    #  - ./standby_pg_hba.conf:/etc/postgresql/pg_hba.conf
+    networks:
+      db_net:
+        ipv4_address: 192.168.1.20
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+networks:
+  db_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
+
+
+# Use COMPOSE_CONVERT_WINDOWS_PATHS=1 if windows
+# Docker machine in windows (docker toolbox) only autoshares c:/users
